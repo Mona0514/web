@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="styles.css">
+   
+    <title>Login</title>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Create Account</h1><br><br>
+                <input type="text" placeholder="Name" />
+                <input type="email" id="emailInput" placeholder="Email" />
+                <input type="password" id="passwordInput"placeholder="Password" />    
+                <input type="passwordConfirm" id="passwordInputConfirm" placeholder="ConfirmPassword" />
+                <button onclick="submitForm()"><a href="product.html">Sign-UP</a></button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Sign in</h1><br><br>
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <a href="#">Forgot your password?</a>
+                <button><a href="product.html">Sign In</a></button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn"><a href="signin.html">Sign In</a></button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp"><a href="signup.html">Sign Up</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+       
+        async function submitForm(){
+            console.log("Function called")
+            const userEmail=document.getElementById("emailInput").value;
+            console.log(userEmail)
+            const userPassword=document.getElementById("passwordInput").value;
+            console.log(userPassword)
+            const userConfirmPassword=document.getElementById("passwordInputConfirm").value;
+            console.log(userConfirmPassword)
+            if(userPassword!=userConfirmPassword){
+                alert("Passwords donot match");
+                return;
+            }
+            else{
+                alert("Created account successfully!!")
+            }
+            const options={
+                body:{
+                    "email":userEmail,
+                    "password":userPassword
+                },
+                method:"POST"
+            }
+            const res=await fetch("http://localhost:3000/signup",options)
+            console.log("This response is :::::",res); 
+        }
+        const signUpButton =document.getElementById('signUp');
+        const signInButton =document.getElementById('signIn');
+        const container =document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+    </script> 
+   
+
+
+<!-- jQuery Plugins -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/jquery.zoom.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
